@@ -8,9 +8,10 @@ import { ShipsComponent } from '../components/ships/ships.component';
 import { PageOneComponent } from '../components/page-one/page-one.component';
 import { PageTwoComponent } from '../components/page-two/page-two.component';
 import { ShipsDetailsComponent } from '../components/ships/ships-details/ships-details.component';
+import { PrincipalComponent } from './principal.component';
 
 @NgModule({
-  declarations: [ShipsComponent, ShipsDetailsComponent, PageOneComponent, PageTwoComponent],
+  declarations: [PrincipalComponent, ShipsComponent, ShipsDetailsComponent, PageOneComponent, PageTwoComponent],
   imports: [CommonModule, PrincipalComponentsRoutingModule, HttpClientModule, NgxPaginationModule]
 })
 export class PrincipalModule {}
