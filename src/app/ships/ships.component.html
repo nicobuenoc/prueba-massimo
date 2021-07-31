@@ -1,3 +1,3 @@
 <div class="container">
-  <ships-details [dataList]="starShipResponse$ | async"></ships-details>
+  <ships-details [dataList]="starShipResponse$ | async" (changePage)="changePage($event)"></ships-details>
 </div>

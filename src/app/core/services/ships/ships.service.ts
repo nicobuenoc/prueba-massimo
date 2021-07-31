@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { StarShipResponse } from 'src/app/core/models/starships-response.model';
 
@@ -16,7 +16,13 @@ export class ShipsService {
 
   constructor(private http: HttpClient) {}
 
-  getShips(): Observable<StarShipResponse> {
-    return this.http.get<StarShipResponse>(this.url);
+  getShips(page: number): Observable<StarShipResponse> {
+    let params = new HttpParams();
+
+    if (page > 0) {
+      params = params.set('page', page.toString());
+    }
+
+    return this.http.get<StarShipResponse>(this.url, { params });
   }
 }

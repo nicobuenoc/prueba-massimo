@@ -16,12 +16,16 @@ export class ShipsComponent implements OnInit {
   constructor(private store: Store<{ starShipResponse: StarShipResponse }>) {}
 
   ngOnInit(): void {
-    this.store.dispatch(loadStarShipResponse());
+    this.store.dispatch(loadStarShipResponse({}));
 
     this.starShipResponse$ = this.store.select('starShipResponse').pipe(
       tap((shipsResponse: StarShipResponse) => {
         console.log('SHIPS -->', shipsResponse?.results);
       })
     );
+  }
+
+  changePage(page: number) {
+    this.store.dispatch(loadStarShipResponse({ page }));
   }
 }
