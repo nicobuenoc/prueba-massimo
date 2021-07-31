@@ -5,8 +5,8 @@ import { ShipsReducer } from './ships/reducers/ships.reducer';
 import { ShipsEffects } from './ships/effects/ships.effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../../environments/environment';
-import { UsersService } from '../core/services/users/users.service';
 import { HttpClientModule } from '@angular/common/http';
+import { ShipsService } from '../core/services/ships/ships.service';
 
 const reducers: ActionReducerMap<any> = {
   starShipResponse: ShipsReducer
@@ -20,6 +20,6 @@ const reducers: ActionReducerMap<any> = {
     HttpClientModule
   ],
   declarations: [],
-  providers: [UsersService]
+  providers: [ShipsService]
 })
 export class AppStoreModule {}
