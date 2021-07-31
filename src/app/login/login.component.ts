@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 
 // JSON
 import usersList from 'src/assets/json/users.json';
+import { User } from '../core/models/user.model';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +14,7 @@ import usersList from 'src/assets/json/users.json';
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   dataLoading = false;
-  users: any = usersList;
+  users: User[] = usersList;
   unregistered = false;
   invalid = false;
 
@@ -33,7 +34,7 @@ export class LoginComponent implements OnInit {
     // TODO : Falta integrar el servicio para autentificar al usuario
     // JSON simulando usuarios
     const userLogin = this.loginForm.value.username;
-    const filterJson = this.users.filter((user) => {
+    const filterJson = this.users.filter((user: User) => {
       return user.first_name === userLogin;
     });
     if (filterJson.length > 0) {

@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 
 // JSON
 import usersList from 'src/assets/json/users.json';
+import { User } from '../core/models/user.model';
 
 @Component({
   selector: 'app-register',
@@ -31,7 +32,7 @@ export class RegisterComponent implements OnInit {
     }
     // TODO : Falta integrar el servicio para registrar al usuario
     // JSON simulando usuarios
-    const userLogin = this.registerForm.value;
+    const userLogin: User = this.registerForm.value;
     usersList.push(userLogin);
     console.log('User Register -->', usersList);
     this.router.navigate(['/principal/ships']);
