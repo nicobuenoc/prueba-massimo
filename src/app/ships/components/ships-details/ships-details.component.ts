@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Ship } from 'src/app/core/models/ship.model';
-import { StartShipResponse } from 'src/app/core/models/starships-response.model';
+import { StarShipResponse } from 'src/app/core/models/starships-response.model';
 declare var $: any;
 
 @Component({
@@ -9,7 +9,7 @@ declare var $: any;
   styleUrls: ['./ships-details.component.scss']
 })
 export class ShipsDetailsComponent implements OnInit {
-  @Input() dataList: StartShipResponse;
+  @Input() dataList: StarShipResponse;
   config: any;
   shipId = '';
   url = '';

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ShipsService } from 'src/app/ships/services/ships.service';
-import { StartShipResponse } from '../core/models/starships-response.model';
+import { StarShipResponse } from '../core/models/starships-response.model';
 
 @Component({
   selector: 'app-ships',
@@ -13,7 +13,7 @@ export class ShipsComponent implements OnInit {
   constructor(private shipsService: ShipsService) {}
 
   ngOnInit(): void {
-    this.shipsService.getShips().subscribe((shipsResponse: StartShipResponse) => {
+    this.shipsService.getShips().subscribe((shipsResponse: StarShipResponse) => {
       this.dataList = shipsResponse;
       console.log('SHIPS -->', this.dataList.results);
     });
