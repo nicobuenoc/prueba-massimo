@@ -22,7 +22,7 @@ export class ShipsDetailsComponent implements OnInit {
     this.config = {
       itemsPerPage: 5,
       currentPage: 1,
-      totalItems: this.dataList.results?.length
+      totalItems: this.dataList?.results?.length
     };
   }
 
