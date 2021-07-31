@@ -14,21 +14,22 @@ describe('ShipsDetailsComponent', () => {
     template: '<p>Mock Pagination controls Component</p>'
   })
   class MockPaginationControls {}
-  @Pipe({name: 'paginate'})
+  @Pipe({ name: 'paginate' })
   class MockPipe implements PipeTransform {
-      transform(value: number): number {
-          //Do stuff here, if you want
-          return value;
-      }
+    transform(value: number): number {
+      // Do stuff here, if you want
+      return value;
+    }
   }
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      imports: [HttpClientModule],
-      declarations: [ ShipsDetailsComponent, MockPaginationControls, MockPipe ]
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        imports: [HttpClientModule],
+        declarations: [ShipsDetailsComponent, MockPaginationControls, MockPipe]
+      }).compileComponents();
     })
-    .compileComponents();
-  }));
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ShipsDetailsComponent);
