@@ -10,9 +10,9 @@ export class ShipsEffects {
   setAccountSettlement$ = createEffect(() =>
     this.actions$.pipe(
       ofType(ShipsActions.loadStarShipResponse),
-      exhaustMap(() =>
+      exhaustMap((action: any) =>
         this.shipsService
-          .getShips()
+          .getShips(action.page)
           .pipe(map((starShipResponse: StarShipResponse) => ShipsActions.setStarShipResponse({ starShipResponse })))
       )
     )

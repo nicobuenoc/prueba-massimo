@@ -16,7 +16,7 @@ export class ShipsService {
 
   constructor(private http: HttpClient) {}
 
-  getShips(): Observable<StarShipResponse> {
-    return this.http.get<StarShipResponse>(this.url);
+  getShips(page: number): Observable<StarShipResponse> {
+    return this.http.get<StarShipResponse>(`${this.url}${page > 0 ? '/page=' + page : ''}`);
   }
 }
