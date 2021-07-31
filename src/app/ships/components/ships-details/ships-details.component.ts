@@ -1,4 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Ship } from 'src/app/core/models/ship.model';
+import { StartShipResponse } from 'src/app/core/models/starships-response.model';
 declare var $: any;
 
 @Component({
@@ -7,14 +9,12 @@ declare var $: any;
   styleUrls: ['./ships-details.component.scss']
 })
 export class ShipsDetailsComponent implements OnInit {
-  @Input() dataList: any;
+  @Input() dataList: StartShipResponse;
   config: any;
   shipId = '';
   url = '';
   // Modal
-  titleDetails = '';
-  modelDetails = '';
-  starshipClass = '';
+  currentShip: Ship;
 
   constructor() {}
 
@@ -22,7 +22,7 @@ export class ShipsDetailsComponent implements OnInit {
     this.config = {
       itemsPerPage: 5,
       currentPage: 1,
-      totalItems: this.dataList.length
+      totalItems: this.dataList.results?.length
     };
   }
 
@@ -36,10 +36,8 @@ export class ShipsDetailsComponent implements OnInit {
     this.config.currentPage = event;
   }
 
-  openDetails(details) {
+  openDetails(ship: Ship) {
     $('#exampleModal').modal('show');
-    this.titleDetails = details.name;
-    this.modelDetails = details.model;
-    this.starshipClass = details.starship_class;
+    this.currentShip = ship;
   }
 }
