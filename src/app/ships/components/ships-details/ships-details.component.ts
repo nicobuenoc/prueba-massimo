@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Ship } from 'src/app/core/models/ship.model';
 import { StarShipResponse } from 'src/app/core/models/starships-response.model';
 declare var $: any;
@@ -9,21 +9,25 @@ declare var $: any;
   styleUrls: ['./ships-details.component.scss']
 })
 export class ShipsDetailsComponent implements OnInit {
-  @Input() dataList: StarShipResponse;
-  config: any;
+  dataList: StarShipResponse;
+  @Input('dataList') set setDataList(dataList: StarShipResponse) {
+    this.dataList = dataList;
+
+    this.config.totalItems = this.dataList?.count;
+  }
+  config: any = {};
   shipId = '';
   url = '';
   // Modal
   currentShip: Ship;
 
+  @Output() changePage = new EventEmitter<number>();
+
   constructor() {}
 
   ngOnInit(): void {
-    this.config = {
-      itemsPerPage: 5,
-      currentPage: 1,
-      totalItems: this.dataList?.results?.length
-    };
+    this.config.itemsPerPage = 10;
+    this.config.currentPage = 1;
   }
 
   getStarshipId(url) {
@@ -32,8 +36,10 @@ export class ShipsDetailsComponent implements OnInit {
     return urlImage !== '';
   }
 
-  pageChanged(event) {
+  pageChanged(event: number) {
     this.config.currentPage = event;
+
+    this.changePage.emit(event);
   }
 
   openDetails(ship: Ship) {
