@@ -24,4 +24,8 @@ export class ShipsComponent implements OnInit {
       })
     );
   }
+
+  changePage(page: number) {
+    this.store.dispatch(loadStarShipResponse({ page }));
+  }
 }
