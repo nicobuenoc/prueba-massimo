@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { StartShipResponse } from 'src/app/core/models/starships-response.model';
+import { StarShipResponse } from 'src/app/core/models/starships-response.model';
 
 @Injectable()
 export class ShipsService {
@@ -16,7 +16,7 @@ export class ShipsService {
 
   constructor(private http: HttpClient) {}
 
-  getShips(): Observable<StartShipResponse> {
-    return this.http.get<StartShipResponse>(this.url);
+  getShips(): Observable<StarShipResponse> {
+    return this.http.get<StarShipResponse>(this.url);
   }
 }

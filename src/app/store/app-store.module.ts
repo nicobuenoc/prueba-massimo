@@ -5,6 +5,8 @@ import { ShipsReducer } from './ships/reducers/ships.reducer';
 import { ShipsEffects } from './ships/effects/ships.effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../../environments/environment';
+import { UsersService } from '../core/services/users/users.service';
+import { HttpClientModule } from '@angular/common/http';
 
 const reducers: ActionReducerMap<any> = {
   starShipResponse: ShipsReducer
@@ -14,8 +16,10 @@ const reducers: ActionReducerMap<any> = {
   imports: [
     StoreModule.forRoot(reducers),
     EffectsModule.forRoot([ShipsEffects]),
-    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production })
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
+    HttpClientModule
   ],
-  declarations: []
+  declarations: [],
+  providers: [UsersService]
 })
 export class AppStoreModule {}

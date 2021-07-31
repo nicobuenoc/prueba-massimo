@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { ShipsService } from 'src/app/ships/services/ships.service';
+import { ShipsService } from '../../../core/services/ships/ships.service';
 import { map, exhaustMap } from 'rxjs/operators';
-import { StarShipResponse } from 'src/app/core/models/starships-response.model';
+import { StarShipResponse } from '../../../core/models/starships-response.model';
 import * as ShipsActions from './../actions/ships.actions';
 
 @Injectable()
