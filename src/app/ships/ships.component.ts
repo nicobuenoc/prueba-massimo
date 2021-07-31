@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 import { StarShipResponse } from '../core/models/starships-response.model';
 import { loadStarShipResponse } from '../store/ships/actions/ships.actions';
 
@@ -9,16 +11,17 @@ import { loadStarShipResponse } from '../store/ships/actions/ships.actions';
   styleUrls: ['./ships.component.scss']
 })
 export class ShipsComponent implements OnInit {
-  public dataList: any = [];
+  public starShipResponse$: Observable<StarShipResponse>;
 
-  constructor(private store: Store<{starShipResponse: StarShipResponse}>) {}
+  constructor(private store: Store<{ starShipResponse: StarShipResponse }>) {}
 
   ngOnInit(): void {
     this.store.dispatch(loadStarShipResponse());
 
-    this.store.select('starShipResponse').subscribe((shipsResponse: StarShipResponse) => {
-      this.dataList = shipsResponse;
-      console.log('SHIPS -->', this.dataList?.results);
-    });
+    this.starShipResponse$ = this.store.select('starShipResponse').pipe(
+      tap((shipsResponse: StarShipResponse) => {
+        console.log('SHIPS -->', shipsResponse?.results);
+      })
+    );
   }
 }
