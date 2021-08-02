@@ -32,4 +32,13 @@ fdescribe('RegisterComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should be invalid the form when fields are empty', () => {
+    component.registerForm.controls.first_name.setValue('');
+    component.registerForm.controls.last_name.setValue('');
+    component.registerForm.controls.username.setValue('');
+    component.registerForm.controls.email.setValue('');
+
+    expect(component.registerForm.invalid).toBeTruthy();
+  });
 });
