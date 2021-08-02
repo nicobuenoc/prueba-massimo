@@ -124,4 +124,13 @@ fdescribe('RegisterComponent', () => {
     expect(spyRegisterUserService).not.toHaveBeenCalled();
     expect(spyRouterNavigate).not.toHaveBeenCalledWith(['/principal/ships']);
   });
+
+  it('form should be valid', () => {
+    component.registerForm.controls.first_name.setValue('Ramon');
+    component.registerForm.controls.last_name.setValue('Garcia');
+    component.registerForm.controls.username.setValue('132456789');
+    component.registerForm.controls.email.setValue('adasd@asd.com');
+
+    expect(component.registerForm.valid).toBeTruthy();
+  });
 });
