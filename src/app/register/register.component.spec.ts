@@ -1,24 +1,27 @@
-
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { RegisterComponent } from './register.component';
+import { UsersService } from '../core/services/users/users.service';
 
-describe('RegisterComponent', () => {
+fdescribe('RegisterComponent', () => {
   let component: RegisterComponent;
   let fixture: ComponentFixture<RegisterComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [ RegisterComponent ],
-      imports:[         
-        FormsModule, 
-        RouterTestingModule.withRoutes([]),
-        ReactiveFormsModule],
-    
+  const usersServiceMock = {
+    existsUser() {},
+    registerUser() {}
+  };
+
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        declarations: [RegisterComponent],
+        imports: [FormsModule, RouterTestingModule.withRoutes([]), ReactiveFormsModule],
+        providers: [{ provide: UsersService, useFactory: () => usersServiceMock }]
+      }).compileComponents();
     })
-    .compileComponents();
-  }));
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(RegisterComponent);
