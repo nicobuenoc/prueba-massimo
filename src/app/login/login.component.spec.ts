@@ -3,8 +3,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { UsersService } from '../core/services/users/users.service';
-
 import { LoginComponent } from './login.component';
+import { By } from '@angular/platform-browser';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -70,5 +70,17 @@ describe('LoginComponent', () => {
 
     password.setValue('123456');
     expect(password.valid).toBeTruthy();
+  });
+
+  it('should not call loginUser method when the login button is clicked and form is invalid', () => {
+    const spyLoginUser = jest.spyOn(component, 'loginUser');
+    const spyRouterNavigate = jest.spyOn((component as any).router, 'navigate');
+
+    const registerButton = fixture.debugElement.query(By.css('#login-button')).nativeElement;
+    registerButton.click();
+
+    expect(spyLoginUser).not.toHaveBeenCalled();
+    expect(component.unregistered).toBeFalsy();
+    expect(spyRouterNavigate).not.toHaveBeenCalledWith(['/principal/ships']);
   });
 });
