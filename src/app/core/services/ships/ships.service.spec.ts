@@ -8,11 +8,12 @@ describe('ShipsService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientModule],
+      providers: [ShipsService]
     });
     service = TestBed.inject(ShipsService);
   });
 
   it('should be created', () => {
-    expect(service).toBeTruthy();
+     expect(service).toBeTruthy();
   });
 });
