@@ -19,7 +19,7 @@ fdescribe('RegisterComponent', () => {
       TestBed.configureTestingModule({
         declarations: [RegisterComponent],
         imports: [FormsModule, RouterTestingModule.withRoutes([]), ReactiveFormsModule],
-        providers: [{ provide: UsersService, useFactory: () => usersServiceMock }]
+        providers: [{ provide: UsersService, useValue: usersServiceMock }]
       }).compileComponents();
     })
   );
@@ -134,7 +134,7 @@ fdescribe('RegisterComponent', () => {
     expect(component.registerForm.valid).toBeTruthy();
   });
 
-  it('should call registerUser method and navigate when the cancel button is clicked and form is valid', () => {
+  it('should call registerUser method and navigate when the registen button is clicked and form is valid', () => {
     const spyRegisterUser = jest.spyOn(component, 'registerUser');
     const spyRegisterUserService = jest.spyOn((component as any).usersService, 'registerUser');
     const spyRouterNavigate = jest.spyOn((component as any).router, 'navigate');
