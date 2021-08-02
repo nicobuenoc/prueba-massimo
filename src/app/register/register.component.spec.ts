@@ -133,4 +133,28 @@ fdescribe('RegisterComponent', () => {
 
     expect(component.registerForm.valid).toBeTruthy();
   });
+
+  it('should call registerUser method and navigate when the cancel button is clicked and form is valid', () => {
+    const spyRegisterUser = jest.spyOn(component, 'registerUser');
+    const spyRegisterUserService = jest.spyOn((component as any).usersService, 'registerUser');
+    const spyRouterNavigate = jest.spyOn((component as any).router, 'navigate');
+
+    component.registerForm.controls.first_name.setValue('Ramon');
+    component.registerForm.controls.last_name.setValue('Garcia');
+    component.registerForm.controls.username.setValue('132456789');
+    component.registerForm.controls.email.setValue('adasd@asd.com');
+    fixture.detectChanges();
+
+    const registerButton = fixture.debugElement.query(By.css('#register-button')).nativeElement;
+    registerButton.click();
+
+    expect(spyRegisterUser).toHaveBeenCalled();
+    expect(spyRegisterUserService).toHaveBeenCalledWith({
+      first_name: 'Ramon',
+      last_name: 'Garcia',
+      username: '132456789',
+      email: 'adasd@asd.com'
+    });
+    expect(spyRouterNavigate).toHaveBeenCalledWith(['/principal/ships']);
+  });
 });
