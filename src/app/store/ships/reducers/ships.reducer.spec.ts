@@ -1,13 +1,13 @@
-import { reducer, initialState } from './ships.reducer';
+import { ShipsReducer, initialStarShipsResponseDestination } from './ships.reducer';
 
 describe('Ships Reducer', () => {
   describe('an unknown action', () => {
     it('should return the previous state', () => {
       const action = {} as any;
 
-      const result = reducer(initialState, action);
+      const result = ShipsReducer(initialStarShipsResponseDestination, action);
 
-      expect(result).toBe(initialState);
+      expect(result).toBe(initialStarShipsResponseDestination);
     });
   });
 });
