@@ -1,27 +1,35 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { UsersService } from '../core/services/users/users.service';
 import { LoginComponent } from './login.component';
 import { By } from '@angular/platform-browser';
+import { Component } from '@angular/core';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
-  let router: Router;
 
   const usersServiceMock = {
     existsUser() {},
     registerUser() {}
   };
 
+  @Component({
+    template: ''
+  })
+  class DummyComponent {}
+
   beforeEach(
     waitForAsync(() => {
       TestBed.configureTestingModule({
         declarations: [LoginComponent],
-        imports: [FormsModule, RouterTestingModule.withRoutes([]), ReactiveFormsModule],
-        providers: [{ provide: UsersService, useFactory: () => usersServiceMock }]
+        imports: [
+          FormsModule,
+          RouterTestingModule.withRoutes([{ path: 'principal/ships', component: DummyComponent }]),
+          ReactiveFormsModule
+        ],
+        providers: [{ provide: UsersService, useValue: usersServiceMock }]
       }).compileComponents();
     })
   );
@@ -81,13 +89,53 @@ describe('LoginComponent', () => {
 
     expect(spyLoginUser).not.toHaveBeenCalled();
     expect(component.unregistered).toBeFalsy();
-    expect(spyRouterNavigate).not.toHaveBeenCalledWith(['/principal/ships']);
+    expect(spyRouterNavigate).not.toHaveBeenCalled();
   });
 
   it('form should be valid', () => {
-    component.loginForm.controls.username.setValue('1324');
-    component.loginForm.controls.password.setValue('1324567');
+    component.loginForm.controls.username.setValue('1234');
+    component.loginForm.controls.password.setValue('1234567');
 
     expect(component.loginForm.valid).toBeTruthy();
+  });
+
+  it('should call registerUser method and navigate when the login button is clicked, form is valid and user exists', () => {
+    const spyRegisterUser = jest.spyOn(component, 'loginUser');
+    const spyExistsUserService = jest.spyOn((component as any).usersService, 'existsUser').mockReturnValue(true);
+    const spyRouterNavigate = jest.spyOn((component as any).router, 'navigate');
+
+    component.loginForm.controls.username.setValue('1234');
+    component.loginForm.controls.password.setValue('1234567');
+    fixture.detectChanges();
+
+    const registerButton = fixture.debugElement.query(By.css('#login-button')).nativeElement;
+    registerButton.click();
+
+    expect(spyRegisterUser).toHaveBeenCalled();
+    expect(spyExistsUserService).toHaveBeenCalledWith({
+      username: '1234'
+    });
+    expect(component.unregistered).toBeFalsy();
+    expect(spyRouterNavigate).toHaveBeenCalledWith(['/principal/ships']);
+  });
+
+  it('should call registerUser method and not navigate when the login button user not exists', () => {
+    const spyLoginUser = jest.spyOn(component, 'loginUser');
+    const spyExistsUserService = jest.spyOn((component as any).usersService, 'existsUser').mockReturnValue(false);
+    const spyRouterNavigate = jest.spyOn((component as any).router, 'navigate');
+
+    component.loginForm.controls.username.setValue('1234');
+    component.loginForm.controls.password.setValue('1234567');
+    fixture.detectChanges();
+
+    const registerButton = fixture.debugElement.query(By.css('#login-button')).nativeElement;
+    registerButton.click();
+
+    expect(spyLoginUser).toHaveBeenCalled();
+    expect(spyExistsUserService).toHaveBeenCalledWith({
+      username: '1234'
+    });
+    expect(component.unregistered).toBeTruthy();
+    expect(spyRouterNavigate).not.toHaveBeenCalled();
   });
 });
