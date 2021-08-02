@@ -41,4 +41,60 @@ fdescribe('RegisterComponent', () => {
 
     expect(component.registerForm.invalid).toBeTruthy();
   });
+
+  it('first_name field validity', () => {
+    const first_name = component.registerForm.controls.first_name;
+    expect(first_name.valid).toBeFalsy();
+
+    first_name.setValue('');
+    expect(first_name.hasError('required')).toBeTruthy();
+
+    first_name.setValue('12');
+    expect(first_name.valid).toBeFalsy();
+
+    first_name.setValue('123');
+    expect(first_name.valid).toBeTruthy();
+  });
+
+  it('last_name field validity', () => {
+    const last_name = component.registerForm.controls.last_name;
+    expect(last_name.valid).toBeFalsy();
+
+    last_name.setValue('');
+    expect(last_name.hasError('required')).toBeTruthy();
+
+    last_name.setValue('12');
+    expect(last_name.valid).toBeFalsy();
+
+    last_name.setValue('123');
+    expect(last_name.valid).toBeTruthy();
+  });
+
+  it('username field validity', () => {
+    const username = component.registerForm.controls.username;
+    expect(username.valid).toBeFalsy();
+
+    username.setValue('');
+    expect(username.hasError('required')).toBeTruthy();
+
+    username.setValue('12');
+    expect(username.valid).toBeFalsy();
+
+    username.setValue('123');
+    expect(username.valid).toBeTruthy();
+  });
+
+  it('email field validity', () => {
+    const email = component.registerForm.controls.email;
+    expect(email.valid).toBeFalsy();
+
+    email.setValue('');
+    expect(email.hasError('required')).toBeTruthy();
+
+    email.setValue('12345');
+    expect(email.valid).toBeFalsy();
+
+    email.setValue('123456');
+    expect(email.valid).toBeTruthy();
+  });
 });
