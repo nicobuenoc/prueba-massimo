@@ -138,4 +138,10 @@ describe('LoginComponent', () => {
     expect(component.unregistered).toBeTruthy();
     expect(spyRouterNavigate).not.toHaveBeenCalled();
   });
+
+  it('should go to register when sing up button is clicked', () => {
+    const singUpButton = fixture.debugElement.query(By.css('#sing-up-button')).nativeElement;
+
+    expect(singUpButton.getAttribute('routerlink')).toEqual('/register');
+  });
 });
