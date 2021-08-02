@@ -4,6 +4,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { RegisterComponent } from './register.component';
 import { UsersService } from '../core/services/users/users.service';
 import { By } from '@angular/platform-browser';
+import { ShipsComponent } from '../ships/ships.component';
 
 fdescribe('RegisterComponent', () => {
   let component: RegisterComponent;
@@ -18,7 +19,11 @@ fdescribe('RegisterComponent', () => {
     waitForAsync(() => {
       TestBed.configureTestingModule({
         declarations: [RegisterComponent],
-        imports: [FormsModule, RouterTestingModule.withRoutes([]), ReactiveFormsModule],
+        imports: [
+          FormsModule,
+          RouterTestingModule.withRoutes([{ path: 'principal/ships', component: ShipsComponent }]),
+          ReactiveFormsModule
+        ],
         providers: [{ provide: UsersService, useValue: usersServiceMock }]
       }).compileComponents();
     })
