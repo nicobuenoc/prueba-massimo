@@ -83,4 +83,11 @@ describe('LoginComponent', () => {
     expect(component.unregistered).toBeFalsy();
     expect(spyRouterNavigate).not.toHaveBeenCalledWith(['/principal/ships']);
   });
+
+  it('form should be valid', () => {
+    component.loginForm.controls.username.setValue('1324');
+    component.loginForm.controls.password.setValue('1324567');
+
+    expect(component.loginForm.valid).toBeTruthy();
+  });
 });
