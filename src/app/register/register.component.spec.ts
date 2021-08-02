@@ -4,7 +4,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { RegisterComponent } from './register.component';
 import { UsersService } from '../core/services/users/users.service';
 import { By } from '@angular/platform-browser';
-import { ShipsComponent } from '../ships/ships.component';
+import { Component } from '@angular/core';
 
 fdescribe('RegisterComponent', () => {
   let component: RegisterComponent;
@@ -15,13 +15,18 @@ fdescribe('RegisterComponent', () => {
     registerUser() {}
   };
 
+  @Component({
+    template: ''
+  })
+  class DummyComponent {}
+
   beforeEach(
     waitForAsync(() => {
       TestBed.configureTestingModule({
         declarations: [RegisterComponent],
         imports: [
           FormsModule,
-          RouterTestingModule.withRoutes([{ path: 'principal/ships', component: ShipsComponent }]),
+          RouterTestingModule.withRoutes([{ path: 'principal/ships', component: DummyComponent }]),
           ReactiveFormsModule
         ],
         providers: [{ provide: UsersService, useValue: usersServiceMock }]
