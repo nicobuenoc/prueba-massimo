@@ -43,4 +43,32 @@ describe('LoginComponent', () => {
 
     expect(component.loginForm.invalid).toBeTruthy();
   });
+
+  it('username field validity', () => {
+    const username = component.loginForm.controls.username;
+    expect(username.valid).toBeFalsy();
+
+    username.setValue('');
+    expect(username.hasError('required')).toBeTruthy();
+
+    username.setValue('12');
+    expect(username.valid).toBeFalsy();
+
+    username.setValue('123');
+    expect(username.valid).toBeTruthy();
+  });
+
+  it('password field validity', () => {
+    const password = component.loginForm.controls.password;
+    expect(password.valid).toBeFalsy();
+
+    password.setValue('');
+    expect(password.hasError('required')).toBeTruthy();
+
+    password.setValue('12345');
+    expect(password.valid).toBeFalsy();
+
+    password.setValue('123456');
+    expect(password.valid).toBeTruthy();
+  });
 });
