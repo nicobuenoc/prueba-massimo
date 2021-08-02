@@ -3,6 +3,7 @@ import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { RegisterComponent } from './register.component';
 import { UsersService } from '../core/services/users/users.service';
+import { By } from '@angular/platform-browser';
 
 fdescribe('RegisterComponent', () => {
   let component: RegisterComponent;
@@ -96,5 +97,31 @@ fdescribe('RegisterComponent', () => {
 
     email.setValue('123456');
     expect(email.valid).toBeTruthy();
+  });
+
+  it('should not call registerUser method when the cancel button is clicked', () => {
+    const spyRegisterUser = jest.spyOn(component, 'registerUser');
+    const spyRegisterUserService = jest.spyOn((component as any).usersService, 'registerUser');
+    const spyRouterNavigate = jest.spyOn((component as any).router, 'navigate');
+
+    const cancelButton = fixture.debugElement.query(By.css('#cancel-button')).nativeElement;
+    cancelButton.click();
+
+    expect(spyRegisterUser).not.toHaveBeenCalled();
+    expect(spyRegisterUserService).not.toHaveBeenCalled();
+    expect(spyRouterNavigate).not.toHaveBeenCalled();
+  });
+
+  it('should not call registerUser method when the register button is clicked and form is invalid', () => {
+    const spyRegisterUser = jest.spyOn(component, 'registerUser');
+    const spyRegisterUserService = jest.spyOn((component as any).usersService, 'registerUser');
+    const spyRouterNavigate = jest.spyOn((component as any).router, 'navigate');
+
+    const registerButton = fixture.debugElement.query(By.css('#register-button')).nativeElement;
+    registerButton.click();
+
+    expect(spyRegisterUser).not.toHaveBeenCalled();
+    expect(spyRegisterUserService).not.toHaveBeenCalled();
+    expect(spyRouterNavigate).not.toHaveBeenCalledWith(['/principal/ships']);
   });
 });
