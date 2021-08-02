@@ -36,4 +36,11 @@ describe('LoginComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should be invalid the form when fields are empty', () => {
+    component.loginForm.controls.username.setValue('');
+    component.loginForm.controls.password.setValue('');
+
+    expect(component.loginForm.invalid).toBeTruthy();
+  });
 });
