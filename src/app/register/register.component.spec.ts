@@ -117,6 +117,7 @@ fdescribe('RegisterComponent', () => {
     const cancelButton = fixture.debugElement.query(By.css('#cancel-button')).nativeElement;
     cancelButton.click();
 
+    expect(cancelButton.getAttribute('routerlink')).toEqual('/');
     expect(spyRegisterUser).not.toHaveBeenCalled();
     expect(spyRegisterUserService).not.toHaveBeenCalled();
     expect(spyRouterNavigate).not.toHaveBeenCalled();
