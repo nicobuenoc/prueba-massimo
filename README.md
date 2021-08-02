@@ -35,4 +35,10 @@ Navigate to `http://localhost:4200/`.
 
 # Notas del desarrollador:
 
+7. Las opciones que se me ocurren son todas suposiciones ya que realmente no sé una resolución al problema:
+	
+	1. Como el trabajo del servidor será el de proveer de las páginas y módulos a los usuarios, tendría cada página en un módulo para aligerar la descarga, esto también implicaría tener configurado la estrategia de pre-carga ‘PreloadingStrategy: NoPreloading’ y así sólo se descargará lo que el usuario necesita y no los demás módulos.
+
+	2. Otra posible solución sería la utilización de Angular Universal, ya que igual que la manera anterior solo proveería al usuario de la página que utilizaría e incluso sin muchos módulos que sólo se utilizarán en el servidor.
+
 
